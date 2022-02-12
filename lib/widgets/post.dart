@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/common_size.dart';
 import 'package:flutter_project/widgets/my_progress_indicator.dart';
 import 'package:flutter_project/widgets/rounded_avatar.dart';
+import 'comment.dart';
 
 class Post extends StatelessWidget {
   final int index;
   Size size;
 
-  Post(
-    this.index, {
+  Post(this.index, {
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (size == null) {
-      size = MediaQuery.of(context).size;
+      size = MediaQuery
+          .of(context)
+          .size;
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,14 +26,29 @@ class Post extends StatelessWidget {
         _postHeader(),
         _postImage(),
         _postActions(),
-        Padding(
-          padding: const EdgeInsets.only(left:common_gap),
-          child: Text(
-            '12000 likes',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
+        _postLikes(),
+        _postCaption(),
       ],
+    );
+  }
+
+  Widget _postCaption() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: common_gap, vertical: common_xxs_gap),
+      child: Comment(showImage: false,
+      username: 'testingUser',
+        text: 'I have money',
+      )
+    );
+  }
+
+  Padding _postLikes() {
+    return Padding(
+      padding: const EdgeInsets.only(left: common_gap),
+      child: Text(
+        '12000 likes',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 
@@ -96,10 +113,11 @@ class Post extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 image:
-                    DecorationImage(image: imageProvider, fit: BoxFit.cover)),
+                DecorationImage(image: imageProvider, fit: BoxFit.cover)),
           ),
         );
       },
     );
   }
 }
+
