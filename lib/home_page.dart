@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/profile_screen.dart';
+import 'constants/screen_size.dart';
 import 'screens/feed_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,6 +39,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (size == null) {
+      size = MediaQuery
+          .of(context)
+          .size;
+    }
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
