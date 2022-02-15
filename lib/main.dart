@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/material_white.dart';
+import 'package:flutter_project/screens/auth_screen.dart';
 import 'home_page.dart';
 
 void main() {
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: AuthScreen(),
+      //home: HomePage(),
       theme: ThemeData(primarySwatch: white),
     );
   }
