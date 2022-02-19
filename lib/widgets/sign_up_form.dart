@@ -49,6 +49,8 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             TextFormField(
               controller: _pwController,
+              cursorColor: Colors.black54,
+              obscureText: true,
               decoration: _textInputDecor('Password'),
               validator: (text) {
                 if (text.isNotEmpty && text.length > 5) {
@@ -63,15 +65,31 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             TextFormField(
               controller: _cpwController,
+              obscureText: true,
               decoration: _textInputDecor('Confirm Password'),
               validator: (text) {
-                if (text.isNotEmpty && _pwController.text==text) {
+                if (text.isNotEmpty && _pwController.text == text) {
                   return null;
                 } else {
                   return '입력한 아이디 정보가 없습니다.';
                 }
               },
             ),
+            FlatButton(
+              onPressed: () {
+                if(_formKey.currentState.validate()){
+                  print('Validation success');
+                }
+              },
+              color: Colors.blue,
+              child: Text(
+                'Join',
+                style: TextStyle(color: Colors.white),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            )
           ],
         ),
       ),
@@ -87,6 +105,19 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           borderRadius: BorderRadius.circular(common_s_gap),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.redAccent,
+          ),
+          borderRadius: BorderRadius.circular(common_s_gap),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey[300],
+          ),
+          borderRadius: BorderRadius.circular(common_s_gap),
+        ),
+
         filled: true,
         fillColor: Colors.grey[100]);
   }
