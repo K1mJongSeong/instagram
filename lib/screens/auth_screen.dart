@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/screens/profile_screen.dart';
 import 'package:flutter_project/widgets/fade_stack.dart';
-import 'package:flutter_project/widgets/sign_in_form.dart';
-import 'package:flutter_project/widgets/sign_up_form.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -15,6 +12,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
           children: [

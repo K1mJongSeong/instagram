@@ -3,7 +3,7 @@ import 'package:flutter_project/constants/screen_size.dart';
 import 'package:flutter_project/widgets/profile_body.dart';
 import 'package:flutter_project/widgets/profile_side_menu.dart';
 
-const duration = Duration(milliseconds: 3000);
+const duration = Duration(milliseconds:300);
 
 class ProfileScreen extends StatefulWidget {
 
