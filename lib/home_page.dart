@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/camera_screen.dart';
 import 'package:flutter_project/screens/profile_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'constants/screen_size.dart';
 import 'screens/feed_screen.dart';
 
@@ -75,8 +76,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _openCamera() {
+  void _openCamera() async{
+    if(await checkIfPermissionGranted(context))
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+  }
+
+  Future<bool> checkIfPermissionGranted(BuildContext context) async{
+    Map<Permission, PermissionStatus> statuses = await [Permission.camera, Permission.microphone].request();
+    bool permitted = true;
+
+    statuses.forEach((permission, permissionStatus) {
+      if(!permissionStatus.isGranted)
+        permitted = false;
+    });
+    return permitted;
   }
 }
