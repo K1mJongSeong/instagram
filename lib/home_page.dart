@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/camera_screen.dart';
 import 'package:flutter_project/screens/profile_screen.dart';
 import 'constants/screen_size.dart';
 import 'screens/feed_screen.dart';
@@ -40,9 +41,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (size == null) {
-      size = MediaQuery
-          .of(context)
-          .size;
+      size = MediaQuery.of(context).size;
     }
     return Scaffold(
       body: IndexedStack(
@@ -62,9 +61,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onBtmItemClick(int index) {
-    print(index);
-    setState(() {
-      _selectedIndex = index;
-    });
+    switch (index) {
+      case 2:
+        _openCamera();
+        break;
+      default:
+        {
+          print(index);
+          setState(() {
+            _selectedIndex = index;
+          });
+        }
+    }
+  }
+
+  void _openCamera() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
   }
 }
