@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _selectedIndex = 0;
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   static List<Widget> _screens = <Widget>[
     FeedScreen(),
@@ -80,6 +81,18 @@ class _HomePageState extends State<HomePage> {
     if(await checkIfPermissionGranted(context))
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+    else {
+      SnackBar snackBar = SnackBar(
+        content: Text('사진, 파일, 마이크 접근 허용 해주셔야 카메라 사용이 가능합니다.'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: (){
+            Scaffold.of(_key.currentContext).hideCurrentSnackBar();
+          },
+        ),
+      );
+      //Scaffold.of(_key.currentContext).showSnackBar(snackbar);
+    }
   }
 
   Future<bool> checkIfPermissionGranted(BuildContext context) async{
