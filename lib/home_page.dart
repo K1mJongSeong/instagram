@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/camera_screen.dart';
 import 'package:flutter_project/screens/profile_screen.dart';
@@ -88,10 +89,11 @@ class _HomePageState extends State<HomePage> {
           label: 'OK',
           onPressed: (){
             Scaffold.of(_key.currentContext).hideCurrentSnackBar();
+            AppSettings.openAppSettings();
           },
         ),
       );
-      //Scaffold.of(_key.currentContext).showSnackBar(snackbar);
+      Scaffold.of(_key.currentContext).showSnackBar(snackBar);
     }
   }
 
