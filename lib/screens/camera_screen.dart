@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/models/camera_state.dart';
 import 'package:flutter_project/widgets/take_photo.dart';
+import 'package:provider/provider.dart';
 
 class CameraScreen extends StatefulWidget {
+  CameraState _cameraState = CameraState();
+
   @override
-  _CameraScreenState createState() => _CameraScreenState();
+  _CameraScreenState createState() {
+    _cameraState.getReadyToTakePhoto();
+    return _CameraScreenState();
+  }
 }
 
 class _CameraScreenState extends State<CameraScreen> {
@@ -19,53 +26,58 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-      ),
-      body: PageView(
-        controller: _pageController,
-        children: [
-          Container(
-            color: Colors.cyanAccent,
-          ),
-          TakePhoto(),
-          Container(
-            color: Colors.greenAccent,
-          )
-        ],
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-            switch (_currentIndex) {
-              case 0:
-                _title = 'Gallery';
-                break;
-              case 1:
-                _title = 'Photo';
-                break;
-              case 2:
-                _title = 'Video';
-                break;
-            }
-          });
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 0,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black38,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box), title: Text('GALLERY')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box), title: Text('PHOTO')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box), title: Text('VIDEO')),
-        ],
-        currentIndex: _currentIndex,
-        onTap: _inItemTabbed,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CameraState>.value(value: widget._cameraState),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title),
+        ),
+        body: PageView(
+          controller: _pageController,
+          children: [
+            Container(
+              color: Colors.cyanAccent,
+            ),
+            TakePhoto(),
+            Container(
+              color: Colors.greenAccent,
+            )
+          ],
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex = index;
+              switch (_currentIndex) {
+                case 0:
+                  _title = 'Gallery';
+                  break;
+                case 1:
+                  _title = 'Photo';
+                  break;
+                case 2:
+                  _title = 'Video';
+                  break;
+              }
+            });
+          },
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          iconSize: 0,
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black38,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_box), title: Text('GALLERY')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_box), title: Text('PHOTO')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_box), title: Text('VIDEO')),
+          ],
+          currentIndex: _currentIndex,
+          onTap: _inItemTabbed,
+        ),
       ),
     );
   }
@@ -79,4 +91,3 @@ class _CameraScreenState extends State<CameraScreen> {
     });
   }
 }
-

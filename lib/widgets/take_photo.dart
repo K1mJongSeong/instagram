@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/widgets/my_progress_indicator.dart';
+import 'package:provider/provider.dart';
 
 class TakePhoto extends StatefulWidget {
   const TakePhoto({
