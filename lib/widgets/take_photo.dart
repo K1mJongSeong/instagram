@@ -27,7 +27,7 @@ class _TakePhotoState extends State<TakePhoto> {
             width: 400,
             height: 400,
             color: Colors.black,
-            child: (cameraState.isReadyToTakePhoto)?_getPreview(cameraState.data):_progress,
+            child: (cameraState.isReadyToTakePhoto)?_getPreview(cameraState):_progress,
           ),
           Expanded(
               child: OutlineButton(
@@ -36,7 +36,7 @@ class _TakePhotoState extends State<TakePhoto> {
                 borderSide: BorderSide(color: Colors.black12, width: 20),
               ))
         ],
-      ),
+      );
       },
     );
   }
@@ -53,6 +53,6 @@ class _TakePhotoState extends State<TakePhoto> {
           ),
         ),
       ),
-    )
+    );
   }
 }
