@@ -6,6 +6,15 @@ class CameraState extends ChangeNotifier {
   CameraDescription _cameraDescription;
   bool _readyTakePhoto = false;
 
+  @override
+  void dispose() {
+    if(_controller != null) _controller.dispose();
+    _controller = null;
+    _cameraDescription = null;
+    _readyTakePhoto = false;
+    notifyListeners();
+  }
+
   void getReadyToTakePhoto() async {
     List<CameraDescription> cameras = await availableCameras();
 
