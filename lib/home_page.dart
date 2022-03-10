@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/camera_screen.dart';
@@ -78,16 +80,16 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _openCamera() async{
-    if(await checkIfPermissionGranted(context))
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+  void _openCamera() async {
+    if (await checkIfPermissionGranted(context))
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CameraScreen()));
     else {
       SnackBar snackBar = SnackBar(
         content: Text('사진, 파일, 마이크 접근 허용 해주셔야 카메라 사용이 가능합니다.'),
         action: SnackBarAction(
           label: 'OK',
-          onPressed: (){
+          onPressed: () {
             Scaffold.of(_key.currentContext).hideCurrentSnackBar();
             AppSettings.openAppSettings();
           },
@@ -97,13 +99,16 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<bool> checkIfPermissionGranted(BuildContext context) async{
-    Map<Permission, PermissionStatus> statuses = await [Permission.camera, Permission.microphone].request();
+  Future<bool> checkIfPermissionGranted(BuildContext context) async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.microphone,
+      Platform.isIOS? Permission.photos: Permission.storage
+    ].request();
     bool permitted = true;
 
     statuses.forEach((permission, permissionStatus) {
-      if(!permissionStatus.isGranted)
-        permitted = false;
+      if (!permissionStatus.isGranted) permitted = false;
     });
     return permitted;
   }

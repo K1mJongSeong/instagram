@@ -45,5 +45,7 @@
     <string>카메라를 사용하시겠습니까?</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>마이크를 사용하시겠습니까?</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>갤러리 내에서 사진을 가져 오시겠습니까?</string>
 </dict>
 </plist>
