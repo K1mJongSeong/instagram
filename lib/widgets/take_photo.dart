@@ -25,27 +25,29 @@ class _TakePhotoState extends State<TakePhoto> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CameraState>(
-      builder: (BuildContext context, CameraState cameraState, Widget child){
-      return Column(
-        children: [
-          Container(
-            width: 400,
-            height: 400,
-            color: Colors.black,
-            child: (cameraState.isReadyToTakePhoto)?_getPreview(cameraState):_progress,
-          ),
-          Expanded(
-              child: OutlineButton(
-                onPressed: () {
-                  if(cameraState.isReadyToTakePhoto){
-                    _attemptTakePhoto(cameraState,context);
-                  }
-                },
-                shape: CircleBorder(),
-                borderSide: BorderSide(color: Colors.black12, width: 20),
-              ))
-        ],
-      );
+      builder: (BuildContext context, CameraState cameraState, Widget child) {
+        return Column(
+          children: [
+            Container(
+              width: 400,
+              height: 400,
+              color: Colors.black,
+              child: (cameraState.isReadyToTakePhoto)
+                  ? _getPreview(cameraState)
+                  : _progress,
+            ),
+            Expanded(
+                child: OutlineButton(
+              onPressed: () {
+                if (cameraState.isReadyToTakePhoto) {
+                  _attemptTakePhoto(cameraState, context);
+                }
+              },
+              shape: CircleBorder(),
+              borderSide: BorderSide(color: Colors.black12, width: 20),
+            ))
+          ],
+        );
       },
     );
   }
@@ -57,7 +59,7 @@ class _TakePhotoState extends State<TakePhoto> {
         child: FittedBox(
           child: Container(
             width: size.width,
-            height: size.height/cameraState.controller.value.aspectRatio,
+            height: size.height / cameraState.controller.value.aspectRatio,
             child: CameraPreview(cameraState.controller),
           ),
         ),
@@ -65,15 +67,15 @@ class _TakePhotoState extends State<TakePhoto> {
     );
   }
 
-  void _attemptTakePhoto(CameraState cameraState,BuildContext context) async{
+  void _attemptTakePhoto(CameraState cameraState, BuildContext context) async {
     final String timeInMilli = DateTime.now().microsecondsSinceEpoch.toString();
-    try{
-     final path = join((await getTemporaryDirectory()).path, '$timeInMilli.png');
-    await cameraState.controller.takePicture(path);
-    File imageFile=File(path);
-    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>SharePostScreen(imageFile)));
-    } catch(e){
-
-    }
+    try {
+      final path =
+          join((await getTemporaryDirectory()).path, '$timeInMilli.png');
+      await cameraState.controller.takePicture(path);
+      File imageFile = File(path);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => SharePostScreen(imageFile)));
+    } catch (e) {}
   }
 }
