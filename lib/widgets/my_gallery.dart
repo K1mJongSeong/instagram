@@ -45,7 +45,7 @@ class _MyGalleryState extends State<MyGallery> {
         } catch (e) {}
       },
           child: Image(
-                image: DeviceImage(localImage),
+                image: DeviceImage(localImage,scale: 0.1),
               ),
         ))
         .toList();
