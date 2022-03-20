@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class FirebaseAuthState extends ChangeNotifier{
-  FirebaseAuthStatus _firebaseAuthStatus =FirebaseAuthStatus.progress;
+  FirebaseAuthStatus _firebaseAuthStatus =FirebaseAuthStatus.signout;
   FirebaseUser _firebaseUser;
   FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
 
