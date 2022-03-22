@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
@@ -18,23 +19,24 @@ class FirebaseAuthState extends ChangeNotifier {
     });
   }
 
-  void registerUser({@required String email, @required String password}) {
+  void registerUser(BuildContext context, {@required String email, @required String password}) {
     _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password).catchError((error) {
+        email: email.trim(), password: password.trim()).catchError((error) {
       print(error);
       String _message = "";
-      // swtich(error.code){
-      // case 'ERROR_WEAK_PASSWORD':
-      // _message="패스워드를 넣어주세";
-      // break;
-      // case 'ERROR_INVAILD_EMAIL':;
-      // _message="이메일 주";
-      // break;
-      // case 'ERROR_EMAIL_ALEADY_IN_USE':
-      // _message="해당 이메일 중";
-      // break;
-      // }
-
+      switch(error.code){
+        case 'ERROR_WEAK_PASSWORD':
+          _message = '패스워드 넣으세요';
+          break;
+        case 'ERROR_INVALID_EMAIL':
+          _message = '이메일 주소 잘못';
+          break;
+        case 'ERROR_ALREADY_IN_USE':
+          _message = '이메일 중';
+          break;
+      }
+      SnackBar snackBar = SnackBar(content: Text(_message),);
+      Scaffold.of(context).showSnackBar(snackBar);
     });
   }
 
