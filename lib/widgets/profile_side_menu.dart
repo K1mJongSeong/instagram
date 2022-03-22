@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class ProfileSideMenu extends StatelessWidget {
   final double menuWidth;
 
-  const ProfileSideMenu(this.menuWidth,{Key key}) : super(key: key);
+  const ProfileSideMenu(this.menuWidth, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,10 @@ class ProfileSideMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text('Setting',
-                style: TextStyle(fontWeight: FontWeight.bold),),
+              title: Text(
+                'Setting',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             ListTile(
               leading: Icon(
@@ -26,8 +28,9 @@ class ProfileSideMenu extends StatelessWidget {
                 color: Colors.black87,
               ),
               title: Text('Sign out'),
-              onTap: (){
-                Provider.of<FirebaseAuthState>(context,listen: false).changeFirebaseAuthStatus(FirebaseAuthStatus.signout);
+              onTap: () {
+                Provider.of<FirebaseAuthState>(context, listen: false)
+                    .signOut();
               },
             )
           ],

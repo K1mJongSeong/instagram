@@ -84,7 +84,8 @@ class _SignInFormState extends State<SignInForm> {
               OrDivider(),
               FlatButton.icon(
                   onPressed: () {
-                    Provider.of<FirebaseAuthState>(context, listen: false).changeFirebaseAuthStatus(FirebaseAuthStatus.signin);
+                    Provider.of<FirebaseAuthState>(context, listen: false)
+                        .changeFirebaseAuthStatus(FirebaseAuthStatus.signin);
                   },
                   textColor: Colors.lightBlue,
                   icon: ImageIcon(AssetImage('assets/images/facebook.png')),
@@ -101,7 +102,8 @@ class _SignInFormState extends State<SignInForm> {
       onPressed: () {
         if (_formKey.currentState.validate()) {
           print('Validation success');
-          Provider.of<FirebaseAuthState>(context,listen: false).changeFirebaseAuthStatus(FirebaseAuthStatus.signout);
+          Provider.of<FirebaseAuthState>(context, listen: false)
+              .login(email: _emailController.text, password: _pwController.text);
         }
       },
       color: Colors.blue,
