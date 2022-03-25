@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_project/utills/simple_snackbar.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
@@ -99,6 +101,28 @@ class FirebaseAuthState extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  void loginWithFacebook(BuildContext context) async {
+    final facebookLogin = FacebookLogin();
+    final result = await facebookLogin.logIn(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        _handleFacebookTokenWithFirebase(context, result.accessToken.token);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        SimpleSnackbar(context, 'User cancel facebook sign in');
+        break;
+      case FacebookLoginStatus.error:
+        SimpleSnackbar(context, '페이스북 로그인 에러');
+        break;
+    }
+  }
+
+  void _handleFacebookTokenWithFirebase(BuildContext context, String token){
+    //TODO: 토큰을 사용해서 파이어베이스로 로그인하기.
+
   }
 
   FirebaseAuthStatus get firebaseAuthStatus => _firebaseAuthStatus;
