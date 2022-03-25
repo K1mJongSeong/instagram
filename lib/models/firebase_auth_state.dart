@@ -112,17 +112,27 @@ class FirebaseAuthState extends ChangeNotifier {
         _handleFacebookTokenWithFirebase(context, result.accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
-        SimpleSnackbar(context, 'User cancel facebook sign in');
+        simpleSnackbar(context, 'User cancel facebook sign in');
         break;
       case FacebookLoginStatus.error:
-        SimpleSnackbar(context, '페이스북 로그인 에러');
+        simpleSnackbar(context, '페이스북 로그인 에');
         break;
     }
   }
 
-  void _handleFacebookTokenWithFirebase(BuildContext context, String token){
+  void _handleFacebookTokenWithFirebase(BuildContext context, String token) async{
     //TODO: 토큰을 사용해서 파이어베이스로 로그인하기.
-
+    final AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: token);
+    
+    final AuthResult authResult= await _firebaseAuth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
+    
+    if(user==null) {
+      simpleSnackbar(context, '페이스북 로그인이 실패 나중에 다시 시도하세요.');
+    }else{
+      _firebaseUser = user;
+    }
+    notifyListeners();
   }
 
   FirebaseAuthStatus get firebaseAuthStatus => _firebaseAuthStatus;
