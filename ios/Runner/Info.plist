@@ -47,5 +47,25 @@
     <string>마이크를 사용하시겠습니까?</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>갤러리 내에서 사진을 가져 오시겠습니까?</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fbAPP-ID</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>APP-ID</string>
+    <key>FacebookClientToken</key>
+    <string>CLIENT-TOKEN</string>
+    <key>FacebookDisplayName</key>
+    <string>APP-NAME</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+    </array>
 </dict>
 </plist>

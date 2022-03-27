@@ -93,7 +93,7 @@ class _SignUpFormState extends State<SignUpForm> {
               FlatButton.icon(
                   onPressed: () {
                     Provider.of<FirebaseAuthState>(context, listen: false)
-                        .changeFirebaseAuthStatus(FirebaseAuthStatus.signin);
+                        .loginWithFacebook(context);
                   },
                   textColor: Colors.lightBlue,
                   icon: ImageIcon(AssetImage('assets/images/facebook.png')),
