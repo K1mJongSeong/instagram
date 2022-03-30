@@ -6,14 +6,19 @@ import 'package:flutter_project/utills/simple_snackbar.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
-  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signout;
+  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.progress;
   FirebaseUser _firebaseUser;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin;
+  bool initiated = false;
 
   void watchAuthChange() {
     _firebaseAuth.onAuthStateChanged.listen((firebaseUser) {
       if (firebaseUser == null && _firebaseUser == null) {
+        if(initiated)
+          changeFirebaseAuthStatus();
+        else
+          initiated = true;
         return;
       } else if (firebaseUser != _firebaseUser) {
         _firebaseUser = firebaseUser;
@@ -24,6 +29,7 @@ class FirebaseAuthState extends ChangeNotifier {
 
   void registerUser(BuildContext context,
       {@required String email, @required String password}) {
+    changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
     _firebaseAuth
         .createUserWithEmailAndPassword(
             email: email.trim(), password: password.trim())
@@ -50,6 +56,7 @@ class FirebaseAuthState extends ChangeNotifier {
 
   void login(BuildContext context,
       {@required String email, @required String password}) {
+    changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
     _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password)
         .catchError((error) {
@@ -83,6 +90,7 @@ class FirebaseAuthState extends ChangeNotifier {
   }
 
   void signOut() async {
+    changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
     _firebaseAuthStatus = FirebaseAuthStatus.signout;
     if (_firebaseUser != null) {
       _firebaseUser = null;
