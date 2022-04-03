@@ -13,13 +13,17 @@ class UserModel {
   final List<dynamic> followings;
   final DocumentReference reference;
 
-  UserModel.from(Map<String,dynamic>map,this.userKey, this.userImg,{this.reference})
-  :profileImg = map[KEY_PROFILEIMG],
-  userName = map[KEY_USERNAME],
-  email = map[KEY_EMAIL],
-  likePosts = map[KEY_LIKEDPOSTS],
-  followers=map[KEY_FOLLOWERS],
-  followings=map[KEY_FOLLOWINGS],
-  myPosts=map[KEY_MYPOSTS],
+  UserModel.from(Map<String, dynamic> map, this.userKey, this.userImg,
+      {this.reference})
+      : profileImg = map[KEY_PROFILEIMG],
+        userName = map[KEY_USERNAME],
+        email = map[KEY_EMAIL],
+        likePosts = map[KEY_LIKEDPOSTS],
+        followers = map[KEY_FOLLOWERS],
+        followings = map[KEY_FOLLOWINGS],
+        myPosts = map[KEY_MYPOSTS];
 
+  UserModel.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, snapshot.documentID,
+            reference: snapshot.reference);
 }
