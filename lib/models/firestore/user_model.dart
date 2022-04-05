@@ -4,7 +4,6 @@ import 'package:flutter_project/constants/firestore_keys.dart';
 class UserModel {
   final String userKey;
   final String profileImg;
-  final String userImg;
   final String email;
   final List<dynamic> myPosts;
   final int followers;
@@ -13,7 +12,7 @@ class UserModel {
   final List<dynamic> followings;
   final DocumentReference reference;
 
-  UserModel.from(Map<String, dynamic> map, this.userKey, this.userImg,
+  UserModel.fromMap(Map<String, dynamic> map, this.userKey,
       {this.reference})
       : profileImg = map[KEY_PROFILEIMG],
         userName = map[KEY_USERNAME],
