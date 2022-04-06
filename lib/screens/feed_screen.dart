@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/repo/user_network_repository.dart';
 import 'package:flutter_project/widgets/post.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -23,14 +24,20 @@ class FeedScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
+              onPressed: (){
+                userNetworkRepository.sendData();
+              },
               icon: ImageIcon(
                 AssetImage('assets/images/actionbar_camera.png'),
                 color: Colors.black87,
               ),
             ),
             IconButton(
+              onPressed: (){
+                userNetworkRepository.getData();
+              },
               icon: ImageIcon(
-                AssetImage('assets/images/actionbar_camera.png'),
+                AssetImage('assets/images/direc_message.png'),
                 color: Colors.black87,
               ),
             ),
