@@ -37,7 +37,7 @@ class FeedScreen extends StatelessWidget {
                 userNetworkRepository.getData();
               },
               icon: ImageIcon(
-                AssetImage('assets/images/direc_message.png'),
+                AssetImage('assets/images/direct_message.png'),
                 color: Colors.black87,
               ),
             ),

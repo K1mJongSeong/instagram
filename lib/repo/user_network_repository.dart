@@ -1,15 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project/constants/firestore_keys.dart';
 
 class UserNetworkRepository {
-  Future<void> sendData() {
-    return Firestore.instance
-        .collection('Users')
-        .document('123123123')
-        .setData({'email': 'testing@gmail.com', 'username': 'myUserName'});
-  }
-
-  void getData() {
-    Firestore.instance.collection('Users').document('123123123').get().then((docSnapshot) => print(docSnapshot.data));
+  Future<void> attemptCreateUser({String userKey, String email}) async {
+    final DocumentReference userRef=Firestore.instance.collection(COLLECTION_USERS).document(userKey);
   }
 }
 

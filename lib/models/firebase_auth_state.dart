@@ -6,7 +6,7 @@ import 'package:flutter_project/utills/simple_snackbar.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
-  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.progress;
+  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signin;
   FirebaseUser _firebaseUser;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin;
@@ -112,6 +112,8 @@ class FirebaseAuthState extends ChangeNotifier {
   }
 
   void loginWithFacebook(BuildContext context) async {
+    changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
+
     if(_facebookLogin==null)
     _facebookLogin = FacebookLogin();
     final result = await _facebookLogin.logIn(['email']);

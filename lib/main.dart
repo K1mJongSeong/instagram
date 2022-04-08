@@ -13,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   FirebaseAuthState _firebaseAuthState = FirebaseAuthState();
   Widget _currentWidget;
-
   @override
   Widget build(BuildContext context) {
     _firebaseAuthState.watchAuthChange();
