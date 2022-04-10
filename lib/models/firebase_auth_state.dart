@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_project/repo/user_network_repository.dart';
 import 'package:flutter_project/utills/simple_snackbar.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
-  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signin;
+  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signout;
   FirebaseUser _firebaseUser;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin;
@@ -14,7 +15,7 @@ class FirebaseAuthState extends ChangeNotifier {
   void watchAuthChange() {
     _firebaseAuth.onAuthStateChanged.listen((firebaseUser) {
       if (firebaseUser == null && _firebaseUser == null) {
-          changeFirebaseAuthStatus();
+        changeFirebaseAuthStatus();
         return;
       } else if (firebaseUser != _firebaseUser) {
         _firebaseUser = firebaseUser;
@@ -24,9 +25,9 @@ class FirebaseAuthState extends ChangeNotifier {
   }
 
   void registerUser(BuildContext context,
-      {@required String email, @required String password}) {
+      {@required String email, @required String password}) async {
     changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
-    _firebaseAuth
+    AuthResult authResult = await _firebaseAuth
         .createUserWithEmailAndPassword(
             email: email.trim(), password: password.trim())
         .catchError((error) {
@@ -48,6 +49,18 @@ class FirebaseAuthState extends ChangeNotifier {
       );
       Scaffold.of(context).showSnackBar(snackBar);
     });
+
+    FirebaseUser firebaseUser = authResult.user;
+    if (firebaseUser == null) {
+      SnackBar snackBar = SnackBar(
+        content: Text("Please try again later"),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    } else {
+      //TODO: send data to firestore
+      await userNetworkRepository.attemptCreateUser(
+          userKey: firebaseUser.uid, email: firebaseUser.email);
+    }
   }
 
   void login(BuildContext context,
@@ -91,7 +104,7 @@ class FirebaseAuthState extends ChangeNotifier {
     if (_firebaseUser != null) {
       _firebaseUser = null;
       await _firebaseAuth.signOut();
-      if(await _facebookLogin.isLoggedIn){
+      if (await _facebookLogin.isLoggedIn) {
         await _facebookLogin.logOut();
       }
     }
@@ -114,8 +127,7 @@ class FirebaseAuthState extends ChangeNotifier {
   void loginWithFacebook(BuildContext context) async {
     changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
 
-    if(_facebookLogin==null)
-    _facebookLogin = FacebookLogin();
+    if (_facebookLogin == null) _facebookLogin = FacebookLogin();
     final result = await _facebookLogin.logIn(['email']);
 
     switch (result.status) {
@@ -131,16 +143,19 @@ class FirebaseAuthState extends ChangeNotifier {
     }
   }
 
-  void _handleFacebookTokenWithFirebase(BuildContext context, String token) async{
+  void _handleFacebookTokenWithFirebase(
+      BuildContext context, String token) async {
     //TODO: 토큰을 사용해서 파이어베이스로 로그인하기.
-    final AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: token);
-    
-    final AuthResult authResult= await _firebaseAuth.signInWithCredential(credential);
+    final AuthCredential credential =
+        FacebookAuthProvider.getCredential(accessToken: token);
+
+    final AuthResult authResult =
+        await _firebaseAuth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
-    
-    if(user==null) {
+
+    if (user == null) {
       simpleSnackbar(context, '페이스북 로그인이 실패 나중에 다시 시도하세요.');
-    }else{
+    } else {
       _firebaseUser = user;
     }
     notifyListeners();
