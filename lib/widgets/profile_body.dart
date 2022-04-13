@@ -4,8 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/common_size.dart';
 import 'package:flutter_project/constants/screen_size.dart';
+import 'package:flutter_project/models/firestore/user_model.dart';
+import 'package:flutter_project/models/user_model_state.dart';
 import 'package:flutter_project/screens/profile_screen.dart';
 import 'package:flutter_project/widgets/rounded_avatar.dart';
+import 'package:provider/provider.dart';
 
 class ProfileBody extends StatefulWidget {
   final Function() onMenuChanged;
@@ -77,7 +80,7 @@ class _ProfileBodyState extends State<ProfileBody>
                         )
                       ],
                     ),
-                    _username(),
+                    _username(context),
                     _userBio(),
                     _editProfileBtn(),
                     _tabButtons(),
@@ -252,12 +255,12 @@ class _ProfileBodyState extends State<ProfileBody>
     );
   }
 
-  Widget _username() {
+  Widget _username(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: common_gap, vertical: common_xxs_gap),
       child: Text(
-        'username',
+        Provider.of<UserModelState>(context).userModel.userName,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
     );
