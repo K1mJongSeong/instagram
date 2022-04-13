@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project/helper/generate_post.dart';
 import 'package:flutter_project/models/gallery_state.dart';
+import 'package:flutter_project/models/user_model_state.dart';
 import 'package:flutter_project/screens/share_post_screen.dart';
 import 'package:local_image_provider/device_image.dart';
 import 'package:local_image_provider/local_image.dart';
@@ -34,14 +36,14 @@ class _MyGalleryState extends State<MyGallery> {
       onTap: ()async{
         Uint8List bytes=await localImage.getScaledImageBytes(galleryState.localImageProvider, 0.3);
 
-        final String timeInMilli = DateTime.now().microsecondsSinceEpoch.toString();
+        final String postKey = getNewPostKey(Provider.of<UserModelState>(context).userModel);
         try {
           final path =
-          join((await getTemporaryDirectory()).path, '$timeInMilli.png');
+          join((await getTemporaryDirectory()).path, '$postKey.png');
 
           File imageFile = File(path)..writeAsBytesSync(bytes);
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => SharePostScreen(imageFile)));
+              .push(MaterialPageRoute(builder: (_) => SharePostScreen(imageFile,postKey: postKey,)));
         } catch (e) {}
       },
           child: Image(
