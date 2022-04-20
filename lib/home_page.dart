@@ -33,9 +33,7 @@ class _HomePageState extends State<HomePage> {
   static List<Widget> _screens = <Widget>[
     FeedScreen(),
     SearchScreen(),
-    Container(
-      color: Colors.blueAccent,
-    ),
+    CameraScreen(),
     Container(
       color: Colors.greenAccent,
     ),

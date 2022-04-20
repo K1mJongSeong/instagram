@@ -54,8 +54,10 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void _initUserModel(FirebaseAuthState firebaseAuthState, BuildContext context) {
-    UserModelState userModelState = Provider.of<UserModelState>(context,listen: false);
+  void _initUserModel(
+      FirebaseAuthState firebaseAuthState, BuildContext context) {
+    UserModelState userModelState =
+        Provider.of<UserModelState>(context, listen: false);
     userModelState.currentStreamSub = userNetworkRepository
         .getUserModeStream(firebaseAuthState.firebaseUser.uid)
         .listen((userModel) {
@@ -64,7 +66,8 @@ class MyApp extends StatelessWidget {
   }
 
   void _clearUserModel(BuildContext context) {
-    UserModelState userModelState = Provider.of<UserModelState>(context,listen: false);
+    UserModelState userModelState =
+        Provider.of<UserModelState>(context, listen: false);
     userModelState.clear();
   }
 }
