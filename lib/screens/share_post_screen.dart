@@ -54,7 +54,7 @@ class SharePostScreen extends StatelessWidget {
     imageNetworkRepository.uploadImageNCreateNewPost(imageFile);
     return Scaffold(
         appBar: AppBar(
-          title: Text('New Post'),
+          title: Text('New Post is good'),
           actions: [
             FlatButton(
                 onPressed: () {},
