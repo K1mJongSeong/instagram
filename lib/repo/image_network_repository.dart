@@ -8,7 +8,7 @@ class ImageNetworkRepository{
     try{
       final File resized = await compute(getResizedImage, originImage);
       originImage.length().then((value) => print('original image size: $value'));
-      resized.length().then((value) => print('original image size: $value'));
+      resized.length().then((value) => print('resized image size: $value'));
     }catch(e){
 
     }
