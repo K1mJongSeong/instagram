@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/common_size.dart';
 import 'package:flutter_project/constants/screen_size.dart';
 import 'package:flutter_project/repo/image_network_repository.dart';
+import 'package:flutter_project/widgets/my_progress_indicator.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 
 class SharePostScreen extends StatelessWidget {
@@ -51,13 +52,20 @@ class SharePostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    imageNetworkRepository.uploadImageNCreateNewPost(imageFile);
     return Scaffold(
         appBar: AppBar(
           title: Text('New Post is good'),
           actions: [
             FlatButton(
-                onPressed: () {},
+                onPressed: () async {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (_) => MyProgressIndicator(),
+                      isDismissible: false,
+                      enableDrag: false);
+                 await imageNetworkRepository.uploadImageNCreateNewPost(imageFile);
+                 Navigator.of(context).pop();
+                },
                 child: Text(
                   "Share",
                   textScaleFactor: 1.4,
