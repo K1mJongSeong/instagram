@@ -63,7 +63,7 @@ class SharePostScreen extends StatelessWidget {
                       builder: (_) => MyProgressIndicator(),
                       isDismissible: false,
                       enableDrag: false);
-                 await imageNetworkRepository.uploadImageNCreateNewPost(imageFile);
+                 await imageNetworkRepository.uploadImageNCreateNewPost(imageFile,postKey: postKey);
                  Navigator.of(context).pop();
                 },
                 child: Text(
