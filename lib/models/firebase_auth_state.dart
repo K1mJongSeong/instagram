@@ -7,7 +7,7 @@ import 'package:flutter_project/utills/simple_snackbar.dart';
 import 'package:path/path.dart';
 
 class FirebaseAuthState extends ChangeNotifier {
-  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signout;
+  FirebaseAuthStatus _firebaseAuthStatus = FirebaseAuthStatus.signin;
   FirebaseUser _firebaseUser;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin;
@@ -67,7 +67,7 @@ class FirebaseAuthState extends ChangeNotifier {
       {@required String email, @required String password}) async{
     changeFirebaseAuthStatus(FirebaseAuthStatus.progress);
     AuthResult authResult = await _firebaseAuth
-        .signInWithEmailAndPassword(email: email, password: password)
+        .signInWithEmailAndPassword(email: email.trim(), password: password.trim())
         .catchError((error) {
       print(error);
       String _message = "";
@@ -115,6 +115,7 @@ class FirebaseAuthState extends ChangeNotifier {
       if (await _facebookLogin.isLoggedIn) {
         await _facebookLogin.logOut();
       }
+
     }
     notifyListeners();
   }

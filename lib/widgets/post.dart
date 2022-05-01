@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/common_size.dart';
 import 'package:flutter_project/constants/screen_size.dart';
+import 'package:flutter_project/repo/image_network_repository.dart';
 import 'package:flutter_project/widgets/my_progress_indicator.dart';
 import 'package:flutter_project/widgets/rounded_avatar.dart';
 import 'comment.dart';
@@ -95,24 +96,29 @@ class Post extends StatelessWidget {
     );
   }
 
-  CachedNetworkImage _postImage() {
-    return CachedNetworkImage(
-      imageUrl: 'https://picsum.photos/id/$index/200/200',
-      placeholder: (BuildContext context, String url) {
-        return MyProgressIndicator(
-          containerSize: size.width,
+  Widget _postImage() {
+    return FutureBuilder<dynamic>(
+      future: imageNetworkRepository.getPostImageUrl("gs://instagram-413bd.appspot.com/김종성6.jpg"),
+      builder: (context, snapshot) {
+        return CachedNetworkImage(
+          imageUrl: 'https://picsum.photos/id/$index/200/200',
+          placeholder: (BuildContext context, String url) {
+            return MyProgressIndicator(
+              containerSize: size.width,
+            );
+          },
+          imageBuilder: (BuildContext context, ImageProvider imageProvider) {
+            return AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                    image:
+                    DecorationImage(image: imageProvider, fit: BoxFit.cover)),
+              ),
+            );
+          },
         );
-      },
-      imageBuilder: (BuildContext context, ImageProvider imageProvider) {
-        return AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            decoration: BoxDecoration(
-                image:
-                DecorationImage(image: imageProvider, fit: BoxFit.cover)),
-          ),
-        );
-      },
+      }
     );
   }
 }

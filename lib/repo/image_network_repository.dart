@@ -9,18 +9,24 @@ class ImageNetworkRepository {
       {@required String postKey}) async {
     try {
       final File resized = await compute(getResizedImage, originImage);
-      final StorageReference storageReference = FirebaseStorage().ref().child(
-          _getImagePathByPostKey(postKey));
+      final StorageReference storageReference =
+          FirebaseStorage().ref().child(_getImagePathByPostKey(postKey));
       final StorageUploadTask uploadTask = storageReference.putFile(resized);
       return uploadTask.onComplete;
     } catch (e) {
       print(e);
       return null;
     }
-
-
   }
+
   String _getImagePathByPostKey(String postKey) => 'post/$postKey/post.jpg';
+
+  Future<dynamic> getPostImageUrl(String postKey) {
+    return FirebaseStorage()
+        .ref()
+        .child(_getImagePathByPostKey(postKey))
+        .getDownloadURL();
+  }
 }
 
 ImageNetworkRepository imageNetworkRepository = ImageNetworkRepository();
