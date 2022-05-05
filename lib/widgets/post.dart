@@ -97,15 +97,17 @@ class Post extends StatelessWidget {
   }
 
   Widget _postImage() {
+    Widget progress = MyProgressIndicator(
+      containerSize: size.width,
+    );
     return FutureBuilder<dynamic>(
       future: imageNetworkRepository.getPostImageUrl("gs://instagram-413bd.appspot.com/김종성6.jpg"),
       builder: (context, snapshot) {
+        if(snapshot.hasData)
         return CachedNetworkImage(
           imageUrl: 'https://picsum.photos/id/$index/200/200',
           placeholder: (BuildContext context, String url) {
-            return MyProgressIndicator(
-              containerSize: size.width,
-            );
+            return progress;
           },
           imageBuilder: (BuildContext context, ImageProvider imageProvider) {
             return AspectRatio(
@@ -118,6 +120,8 @@ class Post extends StatelessWidget {
             );
           },
         );
+        else
+          return progress;
       }
     );
   }
