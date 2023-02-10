@@ -22,14 +22,11 @@ Flutter Instagram clone
 
 
 <h1>Version Upgrage Issue!!😺</h1>
+
+
 |변경 전|변경 후|
 |------|---|
 |FlatButton|TextButton|
-|제목|내용|설명|
-|------|---|---|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
 <pre><code>TextButton(
   onPressed: () {
       // Respond to button press
