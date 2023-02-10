@@ -1,4 +1,11 @@
-# flutter_project
+# KeyPoint
+
+👉Social Login
+👉Firebase FCM
+👉상태관리 Provider
+👉Permission
+👉TDD
+
 
 Flutter Instagram clone
 <h1>사용 기술</h1>
@@ -12,3 +19,89 @@ Flutter Instagram clone
 
 
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=html5&logoColor=white">
+
+
+<h1>Version Upgrage Issue!!😺</h1>
+|변경 전|변경 후|
+|------|---|
+|FlatButton|TextButton|
+```TextButton(
+  onPressed: () {
+      // Respond to button press
+  },
+  child: Text("TEXT BUTTON"),
+)
+TextButton.icon(
+  onPressed: () {
+      // Respond to button press
+  },
+  icon: Icon(Icons.add, size: 18),
+  label: Text("TEXT BUTTON"),
+)```
+기존의 Flat Button에서 style문법이 변화했다.
+
+```FlatButton(
+  textColor: Colors.red, // foreground
+  onPressed: () { },
+  child: Text('FlatButton with custom foreground/background'),
+)
+TextButton(
+  style: TextButton.styleFrom(
+    primary: Colors.red, // foreground
+  ),
+  onPressed: () { },
+  child: Text('TextButton with custom foreground'),
+)```
+
+
+|변경 전|변경 후|
+|------|---|
+|Outline Button|OutlinedButton|
+```OutlinedButton(
+  onPressed: () {
+      // Respond to button press
+  },
+  child: Text("OUTLINED BUTTON"),
+)
+OutlinedButton.icon(
+  onPressed: () {
+      // Respond to button press
+  },
+  icon: Icon(Icons.add, size: 18),
+  label: Text("OUTLINED BUTTON"),
+)```
+
+
+|변경 전|변경 후|
+|------|---|
+|RaisedButton |ElevatedButton|
+```ElevatedButton(
+  onPressed: () {
+      // Respond to button press
+  },
+  child: Text('CONTAINED BUTTON'),
+)
+ElevatedButton.icon(
+  onPressed: () {
+      // Respond to button press
+  },
+  icon: Icon(Icons.add, size: 18),
+  label: Text("CONTAINED BUTTON"),
+)```
+기존의 RaisedButton와 style 문법이 차이가 난다.
+
+
+```RaisedButton(
+  color: Colors.red, // background
+  textColor: Colors.white, // foreground
+  onPressed: () { },
+  child: Text('RaisedButton with custom foreground/background'),
+)
+ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    primary: Colors.red, // background
+    onPrimary: Colors.white, // foreground
+  ),
+  onPressed: () { },
+  child: Text('ElevatedButton with custom foreground/background'),
+)```
