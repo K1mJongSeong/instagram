@@ -25,7 +25,11 @@ Flutter Instagram clone
 |변경 전|변경 후|
 |------|---|
 |FlatButton|TextButton|
-
+|제목|내용|설명|
+|------|---|---|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
 <pre><code>TextButton(
   onPressed: () {
       // Respond to button press
@@ -41,7 +45,7 @@ TextButton.icon(
 )</code></pre>
 기존의 Flat Button에서 style문법이 변화했다.
 
-```FlatButton(
+<pre><code>FlatButton(
   textColor: Colors.red, // foreground
   onPressed: () { },
   child: Text('FlatButton with custom foreground/background'),
@@ -52,13 +56,13 @@ TextButton(
   ),
   onPressed: () { },
   child: Text('TextButton with custom foreground'),
-)```
+)</code></pre>
 
 
 |변경 전|변경 후|
 |------|---|
 |Outline Button|OutlinedButton|
-```OutlinedButton(
+<pre><code>OutlinedButton(
   onPressed: () {
       // Respond to button press
   },
@@ -70,13 +74,13 @@ OutlinedButton.icon(
   },
   icon: Icon(Icons.add, size: 18),
   label: Text("OUTLINED BUTTON"),
-)```
+)</code></pre>
 
 
 |변경 전|변경 후|
 |------|---|
 |RaisedButton |ElevatedButton|
-```ElevatedButton(
+<pre><code>ElevatedButton(
   onPressed: () {
       // Respond to button press
   },
@@ -88,11 +92,11 @@ ElevatedButton.icon(
   },
   icon: Icon(Icons.add, size: 18),
   label: Text("CONTAINED BUTTON"),
-)```
+)</code></pre>
 기존의 RaisedButton와 style 문법이 차이가 난다.
 
 
-```RaisedButton(
+<pre><code>RaisedButton(
   color: Colors.red, // background
   textColor: Colors.white, // foreground
   onPressed: () { },
@@ -105,4 +109,4 @@ ElevatedButton(
   ),
   onPressed: () { },
   child: Text('ElevatedButton with custom foreground/background'),
-)```
+)</code></pre>
