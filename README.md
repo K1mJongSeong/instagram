@@ -25,7 +25,8 @@ Flutter Instagram clone
 |변경 전|변경 후|
 |------|---|
 |FlatButton|TextButton|
-```TextButton(
+
+<pre><code>TextButton(
   onPressed: () {
       // Respond to button press
   },
@@ -37,7 +38,7 @@ TextButton.icon(
   },
   icon: Icon(Icons.add, size: 18),
   label: Text("TEXT BUTTON"),
-)```
+)</code></pre>
 기존의 Flat Button에서 style문법이 변화했다.
 
 ```FlatButton(
