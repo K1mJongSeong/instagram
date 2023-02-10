@@ -1,13 +1,21 @@
-# KeyPoint
+# Flutter Instagram clone KeyPoint
 
 👉Social Login
+
+
 👉Firebase FCM
+
+
 👉상태관리 Provider
+
+
 👉Permission
+
+
 👉TDD
 
 
-Flutter Instagram clone
+
 <h1>사용 기술</h1>
 <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=html5&logoColor=white">
 
